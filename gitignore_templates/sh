@@ -1,0 +1,158 @@
+# Shell script temporary files
+*.tmp
+*.temp
+*~
+._*
+
+# Log files
+*.log
+logs/
+*.out
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.trash
+.Trash-*
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Editor files
+# Vim
+*.swp
+*.swo
+.viminfo
+Session.vim
+
+# Emacs
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+\#*\#
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+secrets/
+*.key
+*.pem
+*.p12
+*.pfx
+config/local*
+
+# Build and distribution
+dist/
+build/
+target/
+*.tar.gz
+*.tgz
+*.zip
+*.deb
+*.rpm
+
+# Runtime files
+*.pid
+*.sock
+*.lock
+pids/
+
+# Test and coverage
+coverage/
+.nyc_output/
+test-results/
+*.lcov
+
+# Cache directories
+.cache/
+cache/
+tmp/
+
+# Local development
+local/
+sandbox/
+# dev/
+
+# Generated documentation
+docs/build/
+man/
+
+# Binaries (if your scripts compile anything)
+*.o
+*.so
+*.dylib
+*.a
+a.out
+
+# Misc
+*.cache
+*.data
+*.errors
+*.fail
+*.mkv
+*.mp4
+*.status
+*.webm
+*.wmv
+# *~
+awk
+bash_history/*
+capture-clipboard.capture
+cp
+date
+dd/.config/mpv/watch_later/*
+gawk
+gcp
+gdate
+ggrep
+gln
+goog.last
+grep
+gsed
+gtar
+ical-import-to-caldav/config.py
+ical-import-to-caldav/ical_export/
+is-work-time.exceptions
+keypress/do.last
+kitty
+launcher/index
+launcher/index.extended
+launcher/index.full
+lib/
+ln
+mthesaur.txt
+mypy_cache/
+nohup.out
+org-quick-todos.tasks
+scratch/*
+sed
+set-wallpapers.current
+skhd
+skhd-arm64-macos
+tar
+temp/*
+testsh/*
+tugfiles.index
+untracked/
+wordle.202?-??-??
+xhelpers.sh*.desktop
+yabai

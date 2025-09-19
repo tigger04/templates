@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+set -e
+
+# ------------------------------------------------------------------------------
+# This script opens (or creates) a file in your editor (defined in $VISUAL
+# or $VISUAL_NOWAIT if specified), and makes it executable if it isn't already.
+#
+# Script will prompt before creating a new file.
+#
+# Based on the templates found here.
+# ------------------------------------------------------------------------------
+
+# to use this script, clone https://github.com/tigger04/shell-and-scripting-helpers to any directory, and create symlinks to $HOME for .qfuncs.sh (or change the reference below)
+
+#shellcheck source=../.qfuncs.sh
+source ~/.qfuncs.sh
+
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+   cat <<EOM
+Usage: vish [FILENAME]
+EOM
+   exit 1
+fi
+
+[ $# -eq 0 ] && die "Need to specify a filename! 🤦‍♀️"
+vish_editor="${VISUAL_NOWAIT:-$VISUAL}"
+[ -n "$vish_editor" ] || vish_editor="$VISUAL"
+
+while [ $# -gt 0 ]; do
+   (
+      if [[ "$1" == *"/"* ]] && ! [[ $1 =~ ^[^/]+/$ ]]; then
+         cd "$(dirname "$1")" || die
+      elif [ -d ~/code/tigoss/"$(basename "$1")" ]; then
+         cd ~/code/tigoss/"$(basename "$1")" || die
+         $vish_editor .
+         exit 0
+      else
+         cd ~/bin
+      fi
+
+      arg="$(basename "$1")"
+
+      # verbose_var -v PWD arg
+      # pause -2 || :
+
+      ext="${arg##*.}"
+      if [[ "$ext" == *"/"* ]] || [[ "$ext" == "$arg" ]]; then
+         ext=""
+      else
+         ext=".$ext"
+      fi
+
+      if ! [ -e "$arg" ]; then
+         read -n 1 -r -p "Create $arg?"
+         [[ "${REPLY,,}" == "y"* ]] || exit 0
+         cp -nv "${0}.template${ext}" "$arg" || touch "$arg"
+         chmod +x $arg
+      elif ! [ -x "$arg" ]; then
+         warn "$arg exists:"
+         ls -ld "$arg"
+         read -n 1 -r -p "Make $(filename "$arg") executable?"
+         [[ "${REPLY,,}" == "y"* ]] || exit 0
+         chmod +x "$arg"
+         ls -ld "$arg"
+      fi
+
+      $vish_editor $arg
+   )
+
+   shift
+done
