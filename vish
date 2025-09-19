@@ -43,8 +43,13 @@ DEFAULTS:
 
 
 #shellcheck source=shell-and-scripting-helpers/.qfuncs.sh
-source "$(dirname "$0")"/shell-and-scripting-helpers/.qfuncs.sh
-
+# ...existing code...
+cmd_dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+source "$cmd_dir/shell-and-scripting-helpers/.qfuncs.sh" || {
+   echo "Error: Could not source shell-and-scripting-helpers/.qfuncs.sh" >&2
+   exit 1
+}
+# ...existing code...
 set -e -o pipefail
 shopt -s dotglob lastpipe
 
