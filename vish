@@ -50,7 +50,7 @@ shopt -s dotglob lastpipe
 
 if [ $# -eq 0 ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
 # display like man page
-   cat <<EOM | format_like_manpage | less -R
+   cat <<EOM | format_manpage | less -R
 
 $info
 EOM
