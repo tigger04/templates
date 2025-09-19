@@ -1,41 +1,77 @@
 #!/usr/bin/env bash
-set -e
 
+# adjust defaults to your taste
+default_script_dir="${VISH_DEFAULT_SCRIPT_DIR:-~/bin}"
+default_ext="${VISH_DEFAULT_EXT:-sh}"
+default_workspaces="${VISH_DEFAULT_WORKSPACES:-~/code/tigoss}"
+
+# shellcheck disable=SC2016
 # ------------------------------------------------------------------------------
-# This script opens (or creates) a file in your editor (defined in $VISUAL
-# or $VISUAL_NOWAIT if specified), and makes it executable if it isn't already.
-#
-# Script will prompt before creating a new file.
-#
-# Based on the templates found here.
+info='
+USAGE:    vish [FILENAME]
+
+WTF:
+
+   This script opens (or creates) a file or workspace in your editor
+   (defined in $VISUAL, currently '"${VISUAL:-not set}"', or
+   $VISUAL_NOWAIT if set, currently '"${VISUAL_NOWAIT:-not set}"')
+
+   Dependencies (run to add submodule):
+   - git submodule add https://github.com/tigger04/shell-and-scripting-helpers.git
+   - git submodule update --init --recursive
+   - possibly Bash v5+
+
+   NB Dependencies are for this script only, not the templates
+
+   Script will prompt before creating a new file.
+
+   Based on the templates found here.
+
+DEFAULTS:
+
+   Default script directory: '"$default_script_dir"'
+   Default extension: '"$default_ext"' (for new files without extension)
+   Default workspaces directory: '"$default_workspaces"'
+
+   You can change defaults by setting environment variables:
+   - VISH_DEFAULT_SCRIPT_DIR
+   - VISH_DEFAULT_EXT
+   - VISH_DEFAULT_WORKSPACES
+   in your shell config file (e.g. ~/.bashrc or ~/.bash_profile).
+'
 # ------------------------------------------------------------------------------
 
-# to use this script, clone https://github.com/tigger04/shell-and-scripting-helpers to any directory, and create symlinks to $HOME for .qfuncs.sh (or change the reference below)
 
-#shellcheck source=../.qfuncs.sh
-source ~/.qfuncs.sh
+#shellcheck source=shell-and-scripting-helpers/.qfuncs.sh
+source "$(dirname "$0")"/shell-and-scripting-helpers/.qfuncs.sh
 
-if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
-   cat <<EOM
-Usage: vish [FILENAME]
+set -e -o pipefail
+shopt -s dotglob lastpipe
+
+if [ $# -eq 0 ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+# display like man page
+   cat <<EOM | format_like_manpage | less -R
+
+$info
 EOM
    exit 1
 fi
 
-[ $# -eq 0 ] && die "Need to specify a filename! 🤦‍♀️"
+[ $# -eq 0 ] && die "No arguments given"
+[ -n "$VISUAL" ] || die "\$VISUAL environment variable! not set"
 vish_editor="${VISUAL_NOWAIT:-$VISUAL}"
-[ -n "$vish_editor" ] || vish_editor="$VISUAL"
 
 while [ $# -gt 0 ]; do
    (
+      # check for directory in argument
       if [[ "$1" == *"/"* ]] && ! [[ $1 =~ ^[^/]+/$ ]]; then
          cd "$(dirname "$1")" || die
       elif [ -d ~/code/tigoss/"$(basename "$1")" ]; then
-         cd ~/code/tigoss/"$(basename "$1")" || die
-         $vish_editor .
+         cd "$default_workspaces/$(basename "$1")" || die
+         show_cmd_execute $vish_editor .
          exit 0
       else
-         cd ~/bin
+         cd "$default_script_dir" || die
       fi
 
       arg="$(basename "$1")"
@@ -43,28 +79,30 @@ while [ $# -gt 0 ]; do
       # verbose_var -v PWD arg
       # pause -2 || :
 
-      ext="${arg##*.}"
-      if [[ "$ext" == *"/"* ]] || [[ "$ext" == "$arg" ]]; then
-         ext=""
+      # get extension (if any)
+      use_template="$(basename "$arg")"
+      if [[ "$use_template" == *"."* ]]; then
+         use_template="${use_template##*.}"
       else
-         ext=".$ext"
+         use_template="$default_ext"
       fi
 
-      if ! [ -e "$arg" ]; then
-         read -n 1 -r -p "Create $arg?"
-         [[ "${REPLY,,}" == "y"* ]] || exit 0
-         cp -nv "${0}.template${ext}" "$arg" || touch "$arg"
-         chmod +x $arg
+      nicepath "$PWD" nice_pwd
+      if ! [ -e "$arg" ] && ok_confirm "Create $nice_pwd/$arg?"; then
+         cp -nv "$cmd_dir/${use_template}" "$arg" || touch "$arg"
+         if ! [ -x "$arg" ] && ok_confirm "Make $arg executable?"; then
+            show_cmd_execute "chmod +x $arg"
+         fi
       elif ! [ -x "$arg" ]; then
          warn "$arg exists:"
          ls -ld "$arg"
-         read -n 1 -r -p "Make $(filename "$arg") executable?"
-         [[ "${REPLY,,}" == "y"* ]] || exit 0
-         chmod +x "$arg"
-         ls -ld "$arg"
+         if ok_confirm "Make $arg executable?"; then
+            show_cmd_execute chmod +x "$arg"
+            sow_cmd_execute ls -ld "$arg"
+         fi
       fi
 
-      $vish_editor $arg
+      show_cmd_execute $vish_editor $arg
    )
 
    shift
