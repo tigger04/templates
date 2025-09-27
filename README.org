@@ -1,0 +1,139 @@
+#+TITLE: Code Templates Collection
+#+AUTHOR: tigger04
+#+DATE: 2025-09-27
+#+DESCRIPTION: A comprehensive collection of code templates and boilerplate files for various programming languages and frameworks
+#+KEYWORDS: templates, boilerplate, coding, development
+
+* Overview
+
+This repository contains a curated collection of code templates and boilerplate files to jumpstart development in various programming languages and environments. It includes both executable script templates and useful =.gitignore= files for different project types.
+
+** Repository Structure
+
+#+BEGIN_SRC
+templates/
+├── python          # Python script template with PyQt5 process handling
+├── shell-script     # Bash script template with best practices
+├── swift           # Swift script template
+├── lua             # Lua script template
+├── perl            # Perl script template (AppleScript)
+├── gitignore_templates/  # Collection of .gitignore files
+│   ├── Angular.gitignore
+│   ├── C.gitignore
+│   ├── C++.gitignore
+│   ├── Python.gitignore
+│   ├── Node.gitignore
+│   ├── Swift.gitignore
+│   └── ... (and more)
+└── README.org      # This file
+#+END_SRC
+
+* Programming Language Templates
+
+** Python Template
+- Location: =python=
+- Features:
+  - Shebang for direct execution
+  - PyQt5 process output reader class
+  - ANSI to HTML conversion capabilities
+  - Signal/slot architecture for GUI applications
+  - Unicode text decoding
+
+** Shell Script Template
+- Location: =shell-script=
+- Features:
+  - Bash shebang with environment detection
+  - ShellCheck integration
+  - Sourced helper functions (=~/.qfuncs.sh=)
+  - Error handling with =set -e -o pipefail=
+  - Built-in help system
+  - Command-line argument processing
+
+** Swift Template
+- Location: =swift=
+- Features:
+  - Swift shebang for script execution
+  - Common import statements (commented)
+  - Ready for Foundation, AppKit, and SwiftUI development
+
+** Additional Templates
+- =lua=: Lua script template
+- =perl=: Perl/AppleScript template
+
+* Gitignore Templates
+
+The =gitignore_templates/= directory contains comprehensive =.gitignore= files for various programming languages, frameworks, and development environments:
+
+** Languages
+- C/C++
+- Python
+- Swift
+- Lua
+- Perl
+- Scala
+- R
+- VBA
+
+** Frameworks & Tools
+- Angular
+- Node.js
+- Qt
+- Maven
+- Hugo
+- WordPress
+- Nix
+
+** Development Environments
+- Visual Studio
+- GitHub Pages
+
+* Usage
+
+** Using Script Templates
+
+1. Copy the desired template to your project directory
+2. Rename it to your desired filename
+3. Make it executable: =chmod +x filename=
+4. Customize the template for your specific needs
+
+#+BEGIN_SRC bash
+# Example: Create a new Python script
+cp templates/python my_new_script.py
+chmod +x my_new_script.py
+# Edit and customize as needed
+#+END_SRC
+
+** Using Gitignore Templates
+
+1. Copy the appropriate =.gitignore= template to your project root
+2. Rename it to =.gitignore=
+3. Customize as needed for your specific project
+
+#+BEGIN_SRC bash
+# Example: Set up gitignore for a Python project
+cp templates/gitignore_templates/Python.gitignore /path/to/project/.gitignore
+#+END_SRC
+
+* Contributing
+
+To add new templates:
+
+1. Create template files following existing naming conventions
+2. Include appropriate shebang lines for executable templates
+3. Add comprehensive comments explaining features
+4. Update this README.org file with template descriptions
+5. Test templates before submitting
+
+* License
+
+This collection is maintained by =tigger04=. Please refer to individual template files for any specific licensing information.
+
+* Notes
+
+- Templates include common best practices for each language
+- Shell script template requires =~/.qfuncs.sh= helper file
+- Python template assumes PyQt5 and ansi2html dependencies
+- All executable templates include proper shebang lines for direct execution
+
+---
+/Last updated: {{{date(%Y-%m-%d)}}}/
