@@ -9,7 +9,7 @@ hugo.exe
 hugo.darwin
 hugo.linux
 
-# Clutter from editors ...
+# Clutter from editors...
 
 ### VSCode ###
 .vscode/*
