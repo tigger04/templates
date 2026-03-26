@@ -109,52 +109,14 @@ The =gitignore_templates/= directory contains comprehensive =.gitignore= files f
 - Visual Studio
 - GitHub Pages
 
-* Usage
-
-** Using Script Templates
-
-1. Copy the desired template to your project directory
-2. Rename it to your desired filename
-3. Make it executable: =chmod +x filename=
-4. Customize the template for your specific needs
-
-#+BEGIN_SRC bash
-# Example: Create a new Python script
-cp templates/python my_new_script.py
-chmod +x my_new_script.py
-# Edit and customize as needed
-#+END_SRC
-
-** Using Gitignore Templates
-
-1. Copy the appropriate =.gitignore= template to your project root
-2. Rename it to =.gitignore=
-3. Customize as needed for your specific project
-
-#+BEGIN_SRC bash
-# Example: Set up gitignore for a Python project
-cp templates/gitignore_templates/Python.gitignore /path/to/project/.gitignore
-#+END_SRC
-
-* Contributing
-
-To add new templates:
-
-1. Create template files following existing naming conventions
-2. Include appropriate shebang lines for executable templates
-3. Add comprehensive comments explaining features
-4. Update this README.org file with template descriptions
-5. Test templates before submitting
-
 * License
 
-This collection is maintained by =tigger04=. Please refer to individual template files for any specific licensing information.
+This collection is maintained by =Taḋg Paul=. You can use anything here you find helpful under MIT license. You can send me a voluntary donation of a bitcoin if you like.
 
 * Notes
 
 - Templates include common best practices for each language
-- Shell script template requires =~/.qfuncs.sh= helper file
-- Python template assumes PyQt5 and ansi2html dependencies
+- Referenced helper function `.qfuncs.sh` is part of https://github.com/tigger04/shell-and-scripting-helpers
 - All executable templates include proper shebang lines for direct execution
 
 ---
