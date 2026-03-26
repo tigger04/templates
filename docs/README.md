@@ -42,5 +42,6 @@ Every project needs at minimum:
 - **docs/testing.md** — always (if the project has tests)
 - **docs/implementation-plan.md** — when the project has multiple delivery phases or tracked issues
 - **CHANGELOG.md** — always (at the project root)
+- LICENSE - always and mandatory if project is publicly visible in any way
 
 Additional docs (feature-specific, model-licensing, etc.) are created as needed and listed in the README's documentation table.
