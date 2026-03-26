@@ -25,6 +25,14 @@ templates/
 │   ├── Node.gitignore
 │   ├── Swift.gitignore
 │   └── ... (and more)
+├── docs/           # Documentation templates
+│   ├── README.md                       # Index and usage guide
+│   ├── template-readme.md              # Project README template
+│   ├── template-vision.md              # VISION.md template
+│   ├── template-architecture.md        # architecture.md template
+│   ├── template-testing.md             # testing.md template
+│   ├── template-implementation-plan.md # implementation-plan.md template
+│   └── template-changelog.md           # CHANGELOG.md template
 └── README.org      # This file
 #+END_SRC
 
@@ -59,6 +67,20 @@ templates/
 ** Additional Templates
 - =lua=: Lua script template
 - =perl=: Perl/AppleScript template
+
+* Documentation Templates
+
+The =docs/= directory contains templates for the standard project documentation set. Each template includes structural guidance and placeholder text explaining what goes in each section.
+
+See [[file:docs/README.md][docs/README.md]] for the full index and usage instructions.
+
+** Included Templates
+- =template-readme.md= — Project root README (overview, quickstart, docs index)
+- =template-vision.md= — Purpose, problem, solution, design principles, non-goals
+- =template-architecture.md= — System diagram, components, data flow, error handling
+- =template-testing.md= — Test strategy, structure, IDs, Makefile targets
+- =template-implementation-plan.md= — Phased delivery with issue tracking and roadmap
+- =template-changelog.md= — User-facing release history (Keep a Changelog format)
 
 * Gitignore Templates
 
